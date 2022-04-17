@@ -9,12 +9,17 @@ const routes: Routes = [
     redirectTo: "home",
   },
   {
-    path: "home",
+    path: "",
     component: NavigationComponent,
     children: [
       {
-        path: "",
+        path: "home",
         loadChildren: () => import("@website/pages/home/home.module").then((m) => m.HomeModule),
+      },
+      {
+        path: "product", // ! ruta ->  product/:id/:title
+        loadChildren: () =>
+          import("@website/pages/detalle/detalle.module").then((m) => m.DetalleModule),
       },
     ],
   },

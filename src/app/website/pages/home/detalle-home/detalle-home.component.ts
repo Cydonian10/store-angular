@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Input } from "@angular/core";
-import { Observable, switchMap, Subject, takeUntil } from "rxjs";
-import { ActivatedRoute } from "@angular/router";
+import { Component, Input } from "@angular/core";
+import { Observable } from "rxjs";
 
-import { DetalleHomeShowService } from "@website/services/detalle-home-show.service";
+import { DetalleHomeShowService } from "../services/detalle-home-show.service";
 import { ProductsService } from "@core/services/produts/products.service";
 import { IProduct } from "@core/interfaces/product.interface";
 
@@ -65,8 +64,8 @@ export class DetalleHomeComponent {
 
   fetchProduct(id: number) {
     this.showDetalle.show.next(true);
-    this.productsService.one(id).subscribe((resp) => {
-      this.product = resp;
+    this.productsService.one(id).subscribe((product) => {
+      this.product = product;
     });
   }
 

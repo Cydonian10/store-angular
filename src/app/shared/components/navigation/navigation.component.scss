@@ -16,14 +16,14 @@ header {
 /** Pantalla negra */
 
 .pantalla-negra {
-  @apply bg-black/50 fixed inset-0 opacity-0 invisible;
+  @apply bg-black/50 fixed inset-0 opacity-0 invisible z-30;
   &.active {
     @apply visible opacity-100;
   }
 }
 
 nav {
-  @apply fixed bg-primary w-64 top-0 bottom-0 left-0 z-10;
+  @apply fixed bg-primary w-64 top-0 bottom-0 left-0 z-40;
   transform: translateX(-100%);
   transition: transform ease-in-out 0.5s;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from "@angular/core";
 import { IProduct } from "@core/interfaces/product.interface";
-import { DetalleHomeShowService } from "@website/services/detalle-home-show.service";
+import { DetalleHomeShowService } from "../services/detalle-home-show.service";
 
 @Component({
   selector: "app-card-product",
@@ -22,7 +22,7 @@ import { DetalleHomeShowService } from "@website/services/detalle-home-show.serv
         </div>
       </ng-container>
       <ng-container footer>
-        <button mat-button>Detalle</button>
+        <button [routerLink]="['/product', product.id, product.title]" mat-button>Detalle</button>
         <button mat-icon-button>
           <mat-icon>add_shopping_cart</mat-icon>
         </button>
