@@ -6,6 +6,10 @@ import { DetalleHomeShowService } from "@website/services/detalle-home-show.serv
 import { ProductsService } from "@core/services/produts/products.service";
 import { IProduct } from "@core/interfaces/product.interface";
 
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+
+SwiperCore.use([Navigation, Pagination]);
+
 @Component({
   selector: "app-detalle-home",
   template: `
@@ -27,8 +31,17 @@ import { IProduct } from "@core/interfaces/product.interface";
         </div>
         <mat-divider class="py-3"></mat-divider>
         <div *ngIf="product" class="p-4">
-          <p>{{ product.id }}</p>
-          <img [src]="product.images[0]" alt="" />
+          <swiper
+            [slidesPerView]="1"
+            [navigation]="true"
+            [pagination]="{ clickable: true }"
+            [loop]="true"
+            [spaceBetween]="50"
+          >
+            <ng-template swiperSlide *ngFor="let image of product.images">
+              <img [src]="image" alt="" />
+            </ng-template>
+          </swiper>
         </div>
       </div>
     </nav>
