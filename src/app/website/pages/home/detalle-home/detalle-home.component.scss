@@ -1,0 +1,18 @@
+/** Pantalla negra */
+
+.pantalla-negra {
+  @apply bg-black/50 fixed inset-0 opacity-0 invisible;
+  &.active {
+    @apply visible opacity-100;
+  }
+}
+
+nav {
+  @apply fixed bg-primary w-64 md:w-96 top-0 bottom-0 right-0 z-10;
+  transform: translateX(100%);
+  transition: transform ease-in-out 0.5s;
+
+  &.active {
+    transform: translateX(0);
+  }
+}

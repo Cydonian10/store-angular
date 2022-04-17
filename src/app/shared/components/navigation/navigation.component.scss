@@ -1,0 +1,37 @@
+@use "/src/scss/colors.scss" as *;
+
+header {
+  @apply bg-primary h-14 text-white;
+}
+
+.wrapper-header {
+  @apply container m-auto flex justify-between items-center px-4;
+  height: inherit;
+}
+
+.postion {
+  @apply flex space-x-1;
+}
+
+/** Pantalla negra */
+
+.pantalla-negra {
+  @apply bg-black/50 fixed inset-0 opacity-0 invisible;
+  &.active {
+    @apply visible opacity-100;
+  }
+}
+
+nav {
+  @apply fixed bg-primary w-64 top-0 bottom-0 left-0 z-10;
+  transform: translateX(-100%);
+  transition: transform ease-in-out 0.5s;
+
+  &.active {
+    transform: translateX(0);
+  }
+}
+
+.container-nav {
+  @apply px-3 py-1 text-white;
+}
