@@ -10,8 +10,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
             <img src="favicon.ico" alt="logo" />
           </div>
           <ul class="hidden md:flex">
-            <li><a class="active" mat-button>ropa</a></li>
-            <li><a mat-button>media</a></li>
+            <li><a routerLinkActive="active" routerLink="/home" mat-button>Home</a></li>
+            <li><a mat-button>Otro</a></li>
           </ul>
         </div>
 
@@ -47,10 +47,22 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
         <mat-divider class="py-3"></mat-divider>
         <ul>
           <li>
-            <a mat-ripple class="active w-full block py-2 px-2">hola</a>
+            <a
+              mat-ripple
+              routerLinkActive="active"
+              routerLink="/home"
+              class="active w-full block py-2 px-2"
+              >Home</a
+            >
           </li>
           <li>
-            <a mat-ripple class="w-full block py-2 px-2">hola</a>
+            <a
+              mat-ripple
+              routerLinkActive="active"
+              routerLink="/otro"
+              class="w-full block py-2 px-2"
+              >cambio</a
+            >
           </li>
         </ul>
       </div>
