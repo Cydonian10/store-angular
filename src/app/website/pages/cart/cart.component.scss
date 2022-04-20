@@ -1,0 +1,12 @@
+.grid-cart {
+  @apply grid grid-cols-1 md:grid-cols-5 md:gap-10;
+}
+
+.items {
+  @apply divide-y divide-solid border border-gray-300 rounded;
+
+  & > .item {
+    @apply grid grid-cols-1 sm:grid-cols-2;
+    @apply md:grid-cols-[150px_1fr_100px_100px] p-3 gap-3;
+  }
+}

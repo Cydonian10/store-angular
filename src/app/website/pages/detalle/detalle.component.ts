@@ -1,21 +1,18 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ViewEncapsulation,
-} from "@angular/core";
-import { of, Subject, switchMap, takeUntil } from "rxjs";
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
+import { map, of, Subject, switchMap, takeUntil, tap } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { ProductsService } from "../../../core/services/produts/products.service";
-import { IProduct } from "@core/interfaces/product.interface";
+import { ICartItem, IProduct } from "@core/interfaces/product.interface";
 import SwiperCore, { Navigation, FreeMode, Thumbs } from "swiper";
+import { CartService } from "../../../core/services/produts/cart.service";
+import { Location } from "@angular/common";
 
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 @Component({
   selector: "app-detalle",
   template: `
+    <button (click)="back()" mat-button>Back</button>
     <div *ngIf="product" class="grid grid-cols-1 md:grid-cols-2 gap-5">
       <div class="order-2 md:order-1">
         <swiper
@@ -58,11 +55,20 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
         <!-- ! footer aumentador -->
         <div class="flex space-x-3 pt-5">
           <div class="aumentador">
-            <button class="bg-gray-300/30 text-primary text-xl" mat-button>-</button>
-            <p class="px-5">0</p>
-            <button class="bg-gray-300/30 text-primary text-xl" mat-button>+</button>
+            <button
+              [disabled]="cartItem === undefined"
+              (click)="removeItemCart(cartItem!.id)"
+              class="bg-gray-300/30 text-primary text-xl"
+              mat-button
+            >
+              -
+            </button>
+            <p class="px-5">{{ cartItem?.quantity ? cartItem?.quantity : 0 }}</p>
+            <button (click)="addCart()" class="bg-gray-300/30 text-primary text-xl" mat-button>
+              +
+            </button>
           </div>
-          <button mat-raised-button class="bg-primary text-white w-48">
+          <button (click)="addCart()" mat-raised-button class="bg-primary text-white w-48">
             <mat-icon>shopping_cart</mat-icon>
             Add to cart
           </button>
@@ -79,8 +85,14 @@ export class DetalleComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<boolean>();
   product: IProduct | null = null;
   thumbsSwiper: any;
+  cartItem: ICartItem | undefined = undefined;
 
-  constructor(private route: ActivatedRoute, private productsService: ProductsService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productsService: ProductsService,
+    private cartService: CartService,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.getParamsDetalle();
@@ -90,6 +102,17 @@ export class DetalleComponent implements OnInit, OnDestroy {
     this.onDestroy$.next(true);
   }
 
+  /**@Obtner Iteme card*/
+  itemCartFetch(id: number | null) {
+    id &&
+      this.cartService.cartItems$
+        .pipe(
+          takeUntil(this.onDestroy$),
+          map((items) => items.find((item) => item.id === id))
+        )
+        .subscribe((resp) => (this.cartItem = resp));
+  }
+
   /**@fetch llamdndo a un solo producto */
   getParamsDetalle() {
     this.route.paramMap
@@ -97,6 +120,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy$),
         switchMap((params) => {
           const id = params.get("id");
+          this.itemCartFetch(Number(id));
           if (id) return this.productsService.one(Number(id));
           return of(null);
         })
@@ -104,5 +128,22 @@ export class DetalleComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => (this.product = data),
       });
+  }
+
+  /**@cart add cart */
+  addCart() {
+    if (this.product) {
+      const newItemCart: ICartItem = { ...this.product, quantity: 1, total: this.product.price };
+      this.cartService.addCart(newItemCart);
+    }
+  }
+
+  removeItemCart(id: number) {
+    this.cartService.removeOneFromCart(id);
+  }
+
+  /**@Retroceder a la pagina anterio */
+  back() {
+    this.location.back();
   }
 }

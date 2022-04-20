@@ -8,9 +8,16 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-home",
   template: `
+    <app-pagination
+      [limit]="limit"
+      [offset]="offset"
+      (onPagination)="getPaginacion($event)"
+    ></app-pagination>
+
     <div class="spinner" *ngIf="status === 'loading'; else render">
       <app-spinner></app-spinner>
     </div>
+
     <ng-template #render>
       <app-grid>
         <app-card-product *ngFor="let product of products" [product]="product"> </app-card-product>
@@ -28,6 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[]>;
   status: Status = "init";
   productId: string | null = null;
+  offset: number = 0;
+  limit: number = 10;
 
   constructor(private productsService: ProductsService, private route: ActivatedRoute) {}
 
@@ -49,8 +58,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   /** @fectch llamada a enpoint para traer datos */
   fetchProducts(): void {
     this.status = "loading";
-    this.productsService.all(10, 0).subscribe({
-      next: () => (this.status = "init"),
+    console.log(this.offset, this.limit);
+
+    this.productsService.all(this.limit, this.offset).subscribe({
+      next: (resp) => (this.status = "init"),
+      error: (e) => console.log(e),
+      complete: () => (this.status = "init"),
+    });
+  }
+
+  /**@paginacion llamda al enpoint para traer datos */
+  getPaginacion(value: number) {
+    this.status = "loading";
+    this.offset = this.offset + this.limit * value;
+    this.productsService.all(this.limit, this.offset).subscribe({
+      next: (resp) => (this.status = "init"),
       error: (e) => console.log(e),
       complete: () => (this.status = "init"),
     });

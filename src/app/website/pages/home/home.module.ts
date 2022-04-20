@@ -10,11 +10,12 @@ import { CardProductComponent } from "./card-product/card-product.component";
 import { DetalleHomeComponent } from "./detalle-home/detalle-home.component";
 
 import { SwiperModule } from "swiper/angular";
+import { PaginationComponent } from './pagination/pagination.component';
 
 const routes: Routes = [{ path: "", component: HomeComponent }];
 
 @NgModule({
-  declarations: [HomeComponent, CardProductComponent, DetalleHomeComponent],
+  declarations: [HomeComponent, CardProductComponent, DetalleHomeComponent, PaginationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

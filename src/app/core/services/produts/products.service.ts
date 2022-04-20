@@ -13,6 +13,10 @@ export class ProductsService {
   private _products = new BehaviorSubject<IProduct[]>([]);
   products$ = this._products.asObservable();
 
+  get product() {
+    return this._products.value;
+  }
+
   constructor(private http: HttpClient) {}
 
   all(limit?: number, offset?: number) {
@@ -26,11 +30,15 @@ export class ProductsService {
       .get<IProduct[]>(`${this.baseUrl}/products`, { params })
       .pipe(
         take(3),
-        tap((products) => this._products.next([...this._products.value, ...products]))
+        tap((products) => this._products.next([...products]))
       );
   }
 
   one(id: number) {
     return this.http.get<IProduct>(`${this.baseUrl}/products/${id}`).pipe(take(3));
+  }
+
+  productByCategory(id: number) {
+    return this.http.get<IProduct[]>(`${this.baseUrl}/categories/${id}/products`);
   }
 }

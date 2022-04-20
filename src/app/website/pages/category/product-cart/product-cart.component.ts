@@ -1,20 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from "@angular/core";
 import { IProduct } from "@core/interfaces/product.interface";
-import { DetalleHomeShowService } from "../services/detalle-home-show.service";
 import { CartService } from "@core/services/produts/cart.service";
 
 @Component({
-  selector: "app-card-product",
+  selector: "app-product-cart",
   template: `
     <app-card>
       <ng-container image>
-        <img
-          (click)="openDetalle()"
-          [src]="product.images[0]"
-          alt="image"
-          routerLink="."
-          [queryParams]="{ product: product.id, title: product.title }"
-        />
+        <img [src]="product.images[0]" alt="image" />
       </ng-container>
       <ng-container body>
         <div class="flex justify-between">
@@ -30,23 +23,14 @@ import { CartService } from "@core/services/produts/cart.service";
       </ng-container>
     </app-card>
   `,
-  styleUrls: ["./card-product.component.scss"],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ["./product-cart.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardProductComponent implements OnInit {
-  image = "https://www.w3schools.com/howto/img_avatar.png";
+export class ProductCartComponent {
   @Input() product: IProduct = {} as IProduct;
 
-  constructor(private showDetalle: DetalleHomeShowService, private cartService: CartService) {}
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {}
-
-  /**@open detalle */
-  openDetalle() {
-    this.showDetalle.show.next(true);
-  }
-
-  /**@cart add cart */
   addCart() {
     this.cartService.addCart({ ...this.product, quantity: 1, total: this.product.price });
   }

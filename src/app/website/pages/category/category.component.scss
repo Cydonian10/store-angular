@@ -1,0 +1,4 @@
+.spinner {
+  @apply h-screen bg-slate-500/60  w-screen fixed right-0 left-0 bottom-0 top-0;
+  @apply flex items-center justify-center;
+}

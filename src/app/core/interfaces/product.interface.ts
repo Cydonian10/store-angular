@@ -8,3 +8,8 @@ export interface IProduct {
   category: ICategory;
   images: Array<string>;
 }
+
+export interface ICartItem extends IProduct {
+  quantity: number;
+  total: number;
+}
