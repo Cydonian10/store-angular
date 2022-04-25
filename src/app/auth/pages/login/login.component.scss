@@ -1,0 +1,25 @@
+:host {
+  @apply grid grid-cols-1 md:grid-cols-2 h-screen w-screen;
+}
+.login,
+.register {
+  @apply justify-self-center self-center;
+}
+
+.register {
+  @apply hidden md:block;
+}
+
+.login-container,
+.register-container {
+  @apply shadow-lg shadow-primary/40 p-5 w-64 md:w-80;
+}
+
+h3 {
+  text-align: center;
+  @apply text-xl md:text-2xl font-bold text-primary mb-5;
+}
+
+button {
+  @apply shadow-lg shadow-primary/50 bg-primary text-white w-full h-10;
+}

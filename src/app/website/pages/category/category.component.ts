@@ -38,7 +38,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   /** @fetch de productos por categoria */
   fetchProductByCategory() {
-    console.log("hola");
     this.status = "loading";
 
     this.route.paramMap

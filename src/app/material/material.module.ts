@@ -14,6 +14,9 @@ import { MatListModule } from "@angular/material/list";
 import { MatRippleModule } from "@angular/material/core";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatTableModule } from "@angular/material/table";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   exports: [
@@ -29,6 +32,9 @@ import { MatDividerModule } from "@angular/material/divider";
     MatRippleModule,
     MatBadgeModule,
     MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
   ],
   imports: [CommonModule],
 })

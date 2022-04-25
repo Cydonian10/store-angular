@@ -4,6 +4,9 @@ import { map, Observable, Subject, takeUntil, tap, switchMap } from "rxjs";
 import { ICartItem } from "@core/interfaces/product.interface";
 import { CategoryService } from "../../../core/services/produts/category.service";
 import { ICategory } from "@core/interfaces/category.interface";
+import { AuthService } from "../../../core/services/auth/auth.service";
+import { IUser } from "../../../core/interfaces/user.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-navigation",
@@ -35,8 +38,31 @@ import { ICategory } from "@core/interfaces/category.interface";
         </div>
 
         <div class="postion">
-          <p class="hidden md:flex">gabriel</p>
-          <button mat-button [routerLink]="['/auth', 'login']">Login</button>
+          <ng-container *ngIf="userLogeado | async as user; else renderLogin">
+            <div class="relative">
+              <p (click)="showSettings = !showSettings" class="hidden md:flex">
+                {{ user.name | titlecase }}
+                <mat-icon>expand_more</mat-icon>
+              </p>
+              <div
+                class="absolute hidden w-40 h-24 right-1 top-7 p-3 bg-white shadow-lg rounded-md z-50 "
+                [class.showSetting]="showSettings"
+              >
+                <button [routerLink]="['/profile']" class="w-full text-primary " mat-button>
+                  <mat-icon>settings </mat-icon>
+                  Profile
+                </button>
+                <button class="w-full text-red-500 " (click)="logaout()" mat-button>
+                  <mat-icon>logout</mat-icon>
+                  Cerrar Sesion
+                </button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #renderLogin>
+            <button mat-button [routerLink]="['/auth', 'login']">Login</button>
+          </ng-template>
+
           <button mat-icon-button routerLink="/cart">
             <mat-icon
               matBadgeSize="small"
@@ -68,7 +94,7 @@ import { ICategory } from "@core/interfaces/category.interface";
               mat-ripple
               routerLinkActive="active"
               routerLink="/home"
-              class="active w-full block py-2 px-2"
+              class="w-full block py-2 px-2"
               >Home</a
             >
           </li>
@@ -81,6 +107,31 @@ import { ICategory } from "@core/interfaces/category.interface";
               >{{ category.name }}</a
             >
           </li>
+
+          <div class="absolute bottom-0 w-56">
+            <ng-container *ngIf="userLogeado | async as user; else renderLogout">
+              <p class="p-2" mat-ripple>{{ user.name }}</p>
+              <a
+                mat-ripple
+                routerLinkActive="active"
+                routerLink="/profile"
+                class="w-full block py-2 px-2"
+                >Profile</a
+              >
+              <button mat-button (click)="logaout()" class="w-full block py-2 px-2  text-red-500">
+                Logout
+              </button>
+            </ng-container>
+            <ng-template #renderLogout>
+              <button
+                mat-stroked-button
+                routerLink="/auth/login"
+                class="w-full block py-2 px-2 text-white mb-3"
+              >
+                Login
+              </button>
+            </ng-template>
+          </div>
         </ul>
       </div>
     </nav>
@@ -95,13 +146,25 @@ import { ICategory } from "@core/interfaces/category.interface";
 export class NavigationComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<boolean>();
   public show = false;
+  public showSettings = false;
   cartItems!: Observable<ICartItem[]>;
+  userLogeado!: Observable<IUser | null>;
 
-  constructor(private cartService: CartService, private categoryService: CategoryService) {}
+  constructor(
+    private cartService: CartService,
+    private categoryService: CategoryService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
   categories: ICategory[] = [];
 
   ngOnInit(): void {
     this.cartItems = this.cartService.cartItems$;
+
+    /** Obeteneindo al user loageado */
+    this.userLogeado = this.authService.userLogueado$;
+
+    /** Obteniendo categorias */
     this.obtenerCategories();
   }
 
@@ -128,5 +191,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   toogleShow() {
     this.show = !this.show;
+  }
+
+  /**@logaout de la pagina */
+  logaout() {
+    this.authService.logaout();
+    this.router.navigateByUrl("/");
   }
 }

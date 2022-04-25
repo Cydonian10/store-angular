@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { TokeService } from "./core/services/local-storage/toke.service";
+import { AuthService } from "./core/services/auth/auth.service";
 
 @Component({
   selector: "app-root",
@@ -6,6 +8,9 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
+  constructor(private tokeService: TokeService, private authService: AuthService) {}
+  ngOnInit(): void {
+    const token = this.tokeService.getToken();
+    token && this.authService.profile().subscribe();
+  }
 }

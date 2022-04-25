@@ -9,6 +9,7 @@ import { CartService } from "@core/services/produts/cart.service";
     <app-card>
       <ng-container image>
         <img
+          appImageError
           (click)="openDetalle()"
           [src]="product.images[0]"
           alt="image"

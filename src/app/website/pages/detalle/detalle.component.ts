@@ -24,7 +24,7 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
           class="mySwiper2"
         >
           <ng-template swiperSlide *ngFor="let image of product.images">
-            <img [src]="image" />
+            <img appImageError [src]="image" />
           </ng-template>
         </swiper>
         <swiper
@@ -37,7 +37,7 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
           class="mySwiper"
         >
           <ng-template swiperSlide *ngFor="let image of product.images">
-            <img [src]="image" />
+            <img appImageError [src]="image" />
           </ng-template>
         </swiper>
       </div>

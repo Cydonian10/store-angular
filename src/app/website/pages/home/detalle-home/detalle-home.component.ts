@@ -38,7 +38,7 @@ SwiperCore.use([Navigation, Pagination]);
             [spaceBetween]="50"
           >
             <ng-template swiperSlide *ngFor="let image of product.images">
-              <img [src]="image" alt="" />
+              <img appImageError [src]="image" alt="" />
             </ng-template>
           </swiper>
         </div>
