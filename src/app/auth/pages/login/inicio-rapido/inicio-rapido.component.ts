@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { AuthService } from "@core/services/auth/auth.service";
 import { Router } from "@angular/router";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
 
 @Component({
   selector: "app-inicio-rapido",

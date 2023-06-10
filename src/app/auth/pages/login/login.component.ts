@@ -4,7 +4,7 @@ import { UntypedFormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "@core/services/auth/auth.service";
 import { Router } from "@angular/router";
 import { Status } from "@core/interfaces/types.interface";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { InicioRapidoComponent } from "./inicio-rapido/inicio-rapido.component";
 
 @Component({

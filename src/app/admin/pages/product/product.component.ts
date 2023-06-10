@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { ProductsService } from "@core/services/produts/products.service";
 import { Subject, takeUntil, tap } from "rxjs";
 import { IProduct } from "@core/interfaces/product.interface";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from "@angular/material/legacy-paginator";
 
 @Component({
   selector: "app-product",
