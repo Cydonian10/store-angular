@@ -12,7 +12,7 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
 @Component({
   selector: "app-detalle",
   template: `
-    <button (click)="back()" mat-button>Back</button>
+    <button (click)="back()" mat-stroked-button class="my-4" color="primary">Back</button>
     <div *ngIf="product" class="grid grid-cols-1 md:grid-cols-2 gap-5">
       <div class="order-2 md:order-1">
         <swiper
