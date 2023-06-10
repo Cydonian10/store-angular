@@ -12,7 +12,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
         <ng-content select="[body]"></ng-content>
       </div>
 
-      <div class="p-2 text-white flex justify-end">
+      <div class="p-2 text-white flex justify-end items-center gap-3">
         <ng-content select="[footer]"></ng-content>
       </div>
     </div>

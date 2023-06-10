@@ -18,10 +18,9 @@ import { Router } from "@angular/router";
             <img src="favicon.ico" alt="logo" />
           </div>
           <ul class="hidden md:flex">
-            <li><a routerLinkActive="active" routerLink="/home" mat-button>Home</a></li>
+            <li><a routerLinkActive="active"  class="w-full block py-2 px-2" routerLink="/home">Home</a></li>
             <li *ngFor="let category of categories">
               <a
-                mat-button
                 routerLinkActive="active"
                 [routerLink]="['/categories', category.id, category.name]"
                 class="w-full block py-2 px-2"
@@ -60,7 +59,7 @@ import { Router } from "@angular/router";
             </div>
           </ng-container>
           <ng-template #renderLogin>
-            <button mat-button [routerLink]="['/auth', 'login']">Login</button>
+            <button mat-raised-button [routerLink]="['/auth', 'login']">Login</button>
           </ng-template>
 
           <button mat-icon-button routerLink="/cart">

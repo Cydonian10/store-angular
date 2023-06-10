@@ -36,8 +36,8 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
           [watchSlidesProgress]="true"
           class="mySwiper"
         >
-          <ng-template swiperSlide *ngFor="let image of product.images">
-            <img appImageError [src]="image" />
+           <ng-template swiperSlide *ngFor="let image of product.images">
+              <img appImageError [src]="image" />
           </ng-template>
         </swiper>
       </div>
@@ -58,17 +58,16 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
             <button
               [disabled]="cartItem === undefined"
               (click)="removeItemCart(cartItem!.id)"
-              class="bg-gray-300/30 text-primary text-xl"
-              mat-button
+              class="bg-gray-300/30 text-primary text-xl py-3 px-7 active:scale-95"
             >
               -
             </button>
             <p class="px-5">{{ cartItem?.quantity ? cartItem?.quantity : 0 }}</p>
-            <button (click)="addCart()" class="bg-gray-300/30 text-primary text-xl" mat-button>
+            <button (click)="addCart()" class="bg-gray-300/30 py-3 px-7 active:scale-95 text-primary text-xl" >
               +
             </button>
           </div>
-          <button (click)="addCart()" mat-raised-button class="bg-primary text-white w-48">
+          <button (click)="addCart()"  class="bg-primary text-white w-48 flex items-center justify-center rounded-lg active:scale-95 py-3">
             <mat-icon>shopping_cart</mat-icon>
             Add to cart
           </button>

@@ -24,7 +24,7 @@ import { CartService } from "@core/services/produts/cart.service";
         </div>
       </ng-container>
       <ng-container footer>
-        <button [routerLink]="['/product', product.id, product.title]" mat-button>Detalle</button>
+        <button [routerLink]="['/product', product.id, product.title]" class="primary">Detalle</button>
         <button (click)="addCart()" mat-icon-button>
           <mat-icon>add_shopping_cart</mat-icon>
         </button>
