@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { Location } from "@angular/common";
-import { FormBuilder, Validators } from "@angular/forms";
+import { UntypedFormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "@core/services/auth/auth.service";
 import { Router } from "@angular/router";
 import { Status } from "@core/interfaces/types.interface";
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
     private dialog: MatDialog
